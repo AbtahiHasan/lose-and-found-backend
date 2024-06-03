@@ -1,14 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { TPasswordHistory, TUser } from './user.interface';
-
-const passwordHistorySchema = new Schema<TPasswordHistory>(
-  {
-    password: {
-      type: String,
-    },
-  },
-  { timestamps: true, _id: false },
-);
+import { TUser } from './user.interface';
 
 const userSchema = new Schema<TUser>(
   {
@@ -24,9 +15,7 @@ const userSchema = new Schema<TUser>(
       type: String,
       select: false,
     },
-    password_history: {
-      type: [passwordHistorySchema],
-    },
+
     role: {
       type: String,
       enum: ['user', 'admin'],
