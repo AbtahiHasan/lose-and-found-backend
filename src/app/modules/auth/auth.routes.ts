@@ -15,11 +15,23 @@ router.post(
   validateRequest(userValidationSchemas.userLoginValidationSchema),
   authControllers.login,
 );
-router.post(
+router.put(
   '/change-password',
   authenticate('user', 'admin'),
   validateRequest(userValidationSchemas.userChangePasswordValidationSchema),
   authControllers.changePassword,
+);
+router.put(
+  '/update-profile',
+  authenticate('user', 'admin'),
+  validateRequest(userValidationSchemas.updateProfileValidationSchema),
+  authControllers.updateProfile,
+);
+router.get(
+  '/update-token',
+  authenticate('user', 'admin'),
+
+  authControllers.updateToken,
 );
 const AuthRoutes = router;
 

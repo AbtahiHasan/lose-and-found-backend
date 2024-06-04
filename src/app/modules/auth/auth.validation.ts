@@ -20,10 +20,21 @@ const userChangePasswordValidationSchema = z.object({
     newPassword: z.string({ invalid_type_error: 'password must be string' }),
   }),
 });
+const updateProfileValidationSchema = z.object({
+  body: z.object({
+    username: z
+      .string({
+        invalid_type_error: 'username must be string',
+      })
+      .optional(),
+    email: z.string({ invalid_type_error: 'email must be string' }).optional(),
+  }),
+});
 
 const userValidationSchemas = {
   userRegistrationValidationSchema,
   userLoginValidationSchema,
   userChangePasswordValidationSchema,
+  updateProfileValidationSchema,
 };
 export default userValidationSchemas;

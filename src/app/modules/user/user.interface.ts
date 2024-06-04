@@ -5,3 +5,8 @@ export type TUser = {
 
   role: 'user' | 'admin';
 };
+
+export type TUpdateProfile = {
+  username: string;
+  email: string;
+};

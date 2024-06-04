@@ -1,13 +1,11 @@
 import httpStatus from 'http-status';
 import AppError from '../../error/AppError';
-import { TUser } from '../user/user.interface';
+import { TUpdateProfile, TUser } from '../user/user.interface';
 import User from '../user/user.model';
 import { TChangePassword, TLogin } from './auth.interface';
 import bcrypt from 'bcrypt';
 import { createToken } from './auth.utils';
 import config from '../../config';
-
-import { Response } from 'express';
 
 const createUserIntoDb = async (payload: TUser) => {
   const hashedPassword = await bcrypt.hash(
@@ -51,7 +49,6 @@ const login = async (payload: TLogin) => {
 };
 
 const changePasswordIntoDb = async (
-  res: Response,
   userId: string,
   payload: TChangePassword,
 ) => {
@@ -74,15 +71,43 @@ const changePasswordIntoDb = async (
     Number(config.bcrypt_salt_rounds),
   );
 
-  const newPasswordObject = {
-    password: hashedPassword,
-  };
   const result = await User.findByIdAndUpdate(userId, {
     $set: { password: hashedPassword },
-    $push: { password_history: newPasswordObject },
   });
 
   return result;
 };
-const authServices = { createUserIntoDb, login, changePasswordIntoDb };
+
+const updateProfile = async (userId: string, payload: TUpdateProfile) => {
+  const result = await User.findByIdAndUpdate(userId, {
+    $set: payload,
+  });
+  return result;
+};
+const updateToken = async (userId: string) => {
+  const user = await User.findById(userId);
+  if (user) {
+    const jwtPayload = {
+      _id: userId,
+      email: user.email,
+      username: user?.username,
+      role: user.role,
+    };
+    const token = createToken(
+      jwtPayload,
+      config.jwt_access_secret as string,
+      config.jwt_access_expires_in as string,
+    );
+
+    return token;
+  }
+};
+
+const authServices = {
+  createUserIntoDb,
+  login,
+  changePasswordIntoDb,
+  updateProfile,
+  updateToken,
+};
 export default authServices;
