@@ -1,14 +1,13 @@
 import httpStatus from 'http-status';
 import AppError from '../../error/AppError';
-import { TPasswordHistory, TUser } from '../user/user.interface';
+import { TUser } from '../user/user.interface';
 import User from '../user/user.model';
 import { TChangePassword, TLogin } from './auth.interface';
 import bcrypt from 'bcrypt';
 import { createToken } from './auth.utils';
 import config from '../../config';
-import sendResponse from '../../utils/sendResponse';
+
 import { Response } from 'express';
-import moment from 'moment';
 
 const createUserIntoDb = async (payload: TUser) => {
   const hashedPassword = await bcrypt.hash(
@@ -16,16 +15,13 @@ const createUserIntoDb = async (payload: TUser) => {
     Number(config.bcrypt_salt_rounds),
   );
   payload.password = hashedPassword;
-  payload.password_history = [{ password: hashedPassword }];
 
   const result = await User.create(payload);
 
   return result;
 };
 const login = async (payload: TLogin) => {
-  const user = await User.findOne({ username: payload.username }).select(
-    '+password',
-  );
+  const user = await User.findOne({ email: payload.email }).select('+password');
   if (!user) {
     throw new AppError(httpStatus.NOT_FOUND, 'This user is not found');
   }
@@ -40,6 +36,7 @@ const login = async (payload: TLogin) => {
   const jwtPayload = {
     _id: user._id.toString(),
     email: user.email,
+    username: user?.username,
     role: user.role,
   };
   const token = createToken(
@@ -70,27 +67,6 @@ const changePasswordIntoDb = async (
   );
   if (!isPasswordMatched) {
     throw new AppError(httpStatus.FORBIDDEN, 'Password do not matched');
-  }
-  const lastTwoPasswords = user.password_history.slice(-2);
-
-  const isPasswordRepeated = lastTwoPasswords.some((history) => {
-    return bcrypt.compareSync(payload?.newPassword, history.password);
-  });
-
-  if (isPasswordRepeated) {
-    const lastUsedDate: any = lastTwoPasswords.find((history) => {
-      return bcrypt.compareSync(payload?.newPassword, history.password);
-    });
-
-    const formattedLastUsedDate = lastUsedDate
-      ? moment(lastUsedDate.createdAt).format('YYYY-MM-DD [at] hh:mm A')
-      : '';
-    return sendResponse(res, {
-      success: false,
-      statusCode: httpStatus.BAD_REQUEST,
-      message: `Password change failed. Ensure the new password is unique and not among the last 2 used (last used on ${formattedLastUsedDate}).`,
-      data: null,
-    });
   }
 
   const hashedPassword = await bcrypt.hash(

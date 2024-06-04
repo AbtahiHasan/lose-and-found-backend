@@ -8,7 +8,7 @@ const userRegistrationValidationSchema = z.object({
 });
 const userLoginValidationSchema = z.object({
   body: z.object({
-    username: z.string({ invalid_type_error: 'username must be string' }),
+    email: z.string({ invalid_type_error: 'email must be string' }),
     password: z.string({ invalid_type_error: 'password must be string' }),
   }),
 });

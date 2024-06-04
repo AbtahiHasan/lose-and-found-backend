@@ -1,6 +1,6 @@
 export type TUserRole = 'user' | 'admin';
 export type TLogin = {
-  username: string;
+  email: string;
   password: string;
 };
 
