@@ -11,11 +11,7 @@ router.post(
   validateRequest(loseValidationSchemas.loseItemValidationSchema),
   loseControllers.createLoseItem,
 );
-router.get(
-  '/get-lose-items',
-  validateRequest(loseValidationSchemas.loseItemValidationSchema),
-  loseControllers.createLoseItem,
-);
+router.get('/get-lose-items', loseControllers.getAllLoseItem);
 
 const LoseItemRoutes = router;
 
