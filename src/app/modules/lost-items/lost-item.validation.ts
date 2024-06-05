@@ -6,6 +6,7 @@ const loseItemValidationSchema = z.object({
     date: z.string(),
     location: z.string(),
     email: z.string().email(),
+    image: z.any(),
     // status: z.enum(['found', 'not found']),
   }),
 });

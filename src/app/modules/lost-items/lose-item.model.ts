@@ -10,6 +10,7 @@ const LoseItemSchema = new Schema<TLoseItem>(
     location: { type: String },
     email: { type: String },
     status: { type: String, enum: ['found', 'not found'] },
+    image: { type: String },
   },
   { timestamps: true },
 );

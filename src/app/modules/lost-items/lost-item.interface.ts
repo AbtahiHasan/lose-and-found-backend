@@ -5,4 +5,5 @@ export type TLoseItem = {
   location: string;
   email: string;
   status: 'found' | 'not found';
+  image: string;
 };
