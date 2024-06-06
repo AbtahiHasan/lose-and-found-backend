@@ -4,6 +4,7 @@ import { TLoseItem } from './lost-item.interface';
 
 const LoseItemSchema = new Schema<TLoseItem>(
   {
+    userId: { type: String },
     category: { type: String },
     description: { type: String },
     date: { type: String },

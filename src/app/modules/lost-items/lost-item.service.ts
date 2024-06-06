@@ -11,9 +11,15 @@ const getAllLoseItem = async () => {
 
   return result;
 };
+const getMyLoseItems = async (userId: string) => {
+  const result = await LoseItem.find({ userId }).sort({ createdAt: -1 });
+
+  return result;
+};
 
 const loseItemServices = {
   createLoseItem,
   getAllLoseItem,
+  getMyLoseItems,
 };
 export default loseItemServices;

@@ -1,4 +1,5 @@
 export type TLoseItem = {
+  userId: string;
   category: string;
   description: string;
   date: string;

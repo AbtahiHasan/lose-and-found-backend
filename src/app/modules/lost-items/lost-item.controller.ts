@@ -21,9 +21,19 @@ const getAllLoseItem = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getMyLoseItems = catchAsync(async (req, res) => {
+  const result = await loseItemServices.getMyLoseItems(req?.user?._id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'my lose items fetched successfully!',
+    data: result,
+  });
+});
 
 const loseControllers = {
   createLoseItem,
   getAllLoseItem,
+  getMyLoseItems,
 };
 export default loseControllers;
