@@ -21,7 +21,11 @@ const ClaimSchema = new Schema<TClaim>(
     id: { type: String },
     userId: { type: String },
     description: { type: String },
-    status: { type: String, enum: ['pending', 'accepted', 'rejected'] },
+    status: {
+      type: String,
+      enum: ['pending', 'accepted', 'rejected'],
+      default: 'pending',
+    },
   },
   { timestamps: true },
 );

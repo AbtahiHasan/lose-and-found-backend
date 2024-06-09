@@ -16,6 +16,14 @@ const createClaim = async (payload: TClaim) => {
 
   return result;
 };
+const getMyClaims = async (userId: string) => {
+  const result = await Claim.find({
+    userId: userId,
+  });
+
+  return result;
+};
+
 const getAllFoundItem = async () => {
   const result = await FoundItem.find().sort({ createdAt: -1 });
 
@@ -30,6 +38,7 @@ const getMyFoundItems = async (userId: string) => {
 const FoundItemServices = {
   createFoundItem,
   createClaim,
+  getMyClaims,
   getAllFoundItem,
   getMyFoundItems,
 };

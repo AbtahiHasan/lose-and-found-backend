@@ -18,6 +18,12 @@ router.post(
   validateRequest(loseValidationSchemas.claimValidationSchema),
   loseControllers.createClaim,
 );
+router.get(
+  '/get-my-claims',
+  authenticate('user'),
+
+  loseControllers.getMyClaims,
+);
 router.get('/get-found-items', loseControllers.getAllFoundItem);
 router.get(
   '/get-my-found-items',

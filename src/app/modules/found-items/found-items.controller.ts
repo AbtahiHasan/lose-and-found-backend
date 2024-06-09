@@ -24,6 +24,15 @@ const createClaim = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getMyClaims = catchAsync(async (req, res) => {
+  const result = await foundItemServices.getMyClaims(req?.user?._id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'claim fetched successfully!',
+    data: result,
+  });
+});
 const getAllFoundItem = catchAsync(async (req, res) => {
   const result = await foundItemServices.getAllFoundItem();
   sendResponse(res, {
@@ -46,6 +55,7 @@ const getMyFoundItems = catchAsync(async (req, res) => {
 const foundControllers = {
   createFoundItem,
   createClaim,
+  getMyClaims,
   getAllFoundItem,
   getMyFoundItems,
 };
