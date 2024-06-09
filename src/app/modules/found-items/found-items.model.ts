@@ -1,6 +1,6 @@
 import { Schema, model } from 'mongoose';
 
-import { TFoundItem } from './found-items.interface';
+import { TClaim, TFoundItem } from './found-items.interface';
 
 const FoundItemSchema = new Schema<TFoundItem>(
   {
@@ -15,6 +15,18 @@ const FoundItemSchema = new Schema<TFoundItem>(
   },
   { timestamps: true },
 );
+
+const ClaimSchema = new Schema<TClaim>(
+  {
+    id: { type: String },
+    userId: { type: String },
+    description: { type: String },
+    status: { type: String, enum: ['pending', 'accepted', 'rejected'] },
+  },
+  { timestamps: true },
+);
+
+export const Claim = model<TClaim>('Claim', ClaimSchema);
 
 const FoundItem = model<TFoundItem>('FoundItem', FoundItemSchema);
 

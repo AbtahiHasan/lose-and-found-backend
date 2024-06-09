@@ -12,6 +12,18 @@ const createFoundItem = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const createClaim = catchAsync(async (req, res) => {
+  const result = await foundItemServices.createClaim({
+    ...req.body,
+    userId: req?.user?._id,
+  });
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.CREATED,
+    message: 'claim  submitted successfully!',
+    data: result,
+  });
+});
 const getAllFoundItem = catchAsync(async (req, res) => {
   const result = await foundItemServices.getAllFoundItem();
   sendResponse(res, {
@@ -33,6 +45,7 @@ const getMyFoundItems = catchAsync(async (req, res) => {
 
 const foundControllers = {
   createFoundItem,
+  createClaim,
   getAllFoundItem,
   getMyFoundItems,
 };

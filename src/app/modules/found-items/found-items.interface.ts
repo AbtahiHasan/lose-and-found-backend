@@ -8,3 +8,10 @@ export type TFoundItem = {
   status: 'found' | 'not found';
   image: string;
 };
+
+export type TClaim = {
+  id: string;
+  description: string;
+  userId: string;
+  status: 'pending' | 'accepted' | 'rejected';
+};

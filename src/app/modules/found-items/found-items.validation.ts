@@ -1,5 +1,5 @@
 import { z } from 'zod';
-const loseItemValidationSchema = z.object({
+const foundItemValidationSchema = z.object({
   body: z.object({
     category: z.string(),
     description: z.string(),
@@ -11,7 +11,15 @@ const loseItemValidationSchema = z.object({
   }),
 });
 
+const claimValidationSchema = z.object({
+  body: z.object({
+    id: z.string().min(1, 'id is required'),
+    description: z.string().min(1, 'description is required'),
+  }),
+});
+
 const loseValidationSchemas = {
-  loseItemValidationSchema,
+  foundItemValidationSchema,
+  claimValidationSchema,
 };
 export default loseValidationSchemas;

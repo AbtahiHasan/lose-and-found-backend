@@ -9,8 +9,14 @@ import authenticate from '../../middleware/auth.middleware';
 const router = Router();
 router.post(
   '/submit-found-item',
-  validateRequest(loseValidationSchemas.loseItemValidationSchema),
+  validateRequest(loseValidationSchemas.foundItemValidationSchema),
   loseControllers.createFoundItem,
+);
+router.post(
+  '/claim-found-item',
+  authenticate('user'),
+  validateRequest(loseValidationSchemas.claimValidationSchema),
+  loseControllers.createClaim,
 );
 router.get('/get-found-items', loseControllers.getAllFoundItem);
 router.get(
