@@ -31,6 +31,11 @@ router.get(
   authenticate('user'),
   loseControllers.getMyFoundItems,
 );
+router.put(
+  '/update-status',
+  authenticate('user'),
+  loseControllers.updateStatus,
+);
 
 const FoundItemRoutes = router;
 

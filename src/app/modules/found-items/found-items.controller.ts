@@ -54,6 +54,15 @@ const getMyFoundItems = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const updateStatus = catchAsync(async (req, res) => {
+  const result = await foundItemServices.updateStatus(req.body);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'status updated successfully!',
+    data: result,
+  });
+});
 
 const foundControllers = {
   createFoundItem,
@@ -61,5 +70,7 @@ const foundControllers = {
   getMyClaims,
   getAllFoundItem,
   getMyFoundItems,
+
+  updateStatus,
 };
 export default foundControllers;

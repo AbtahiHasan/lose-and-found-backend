@@ -34,6 +34,13 @@ const getMyFoundItems = async (userId: string) => {
 
   return result;
 };
+const updateStatus = async (payload: { id: string; status: string }) => {
+  const result = await FoundItem.findByIdAndUpdate(payload?.id, {
+    $set: { status: payload.status },
+  });
+
+  return result;
+};
 
 const FoundItemServices = {
   createFoundItem,
@@ -41,5 +48,7 @@ const FoundItemServices = {
   getMyClaims,
   getAllFoundItem,
   getMyFoundItems,
+
+  updateStatus,
 };
 export default FoundItemServices;
