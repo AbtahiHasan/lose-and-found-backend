@@ -4,7 +4,10 @@ import sendResponse from '../../utils/sendResponse';
 import foundItemServices from './found-items.service';
 
 const createFoundItem = catchAsync(async (req, res) => {
-  const result = await foundItemServices.createFoundItem(req.body);
+  const result = await foundItemServices.createFoundItem(
+    req.body,
+    req?.user?._id,
+  );
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.CREATED,

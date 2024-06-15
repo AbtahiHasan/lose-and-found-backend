@@ -1,8 +1,8 @@
 import { TClaim, TFoundItem } from './found-items.interface';
 import FoundItem, { Claim } from './found-items.model';
 
-const createFoundItem = async (payload: TFoundItem) => {
-  const result = await FoundItem.create(payload);
+const createFoundItem = async (payload: TFoundItem, userId: string) => {
+  const result = await FoundItem.create({ ...payload, userId });
 
   return result;
 };

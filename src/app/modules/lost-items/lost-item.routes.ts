@@ -9,6 +9,7 @@ import authenticate from '../../middleware/auth.middleware';
 const router = Router();
 router.post(
   '/submit-lose-item',
+  authenticate('user'),
   validateRequest(loseValidationSchemas.loseItemValidationSchema),
   loseControllers.createLoseItem,
 );

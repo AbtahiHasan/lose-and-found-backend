@@ -1,8 +1,8 @@
 import { TLoseItem } from './lost-item.interface';
 import LoseItem from './lose-item.model';
 
-const createLoseItem = async (payload: TLoseItem) => {
-  const result = await LoseItem.create(payload);
+const createLoseItem = async (payload: TLoseItem, userId: string) => {
+  const result = await LoseItem.create({ ...payload, userId });
 
   return result;
 };

@@ -4,7 +4,10 @@ import sendResponse from '../../utils/sendResponse';
 import loseItemServices from './lost-item.service';
 
 const createLoseItem = catchAsync(async (req, res) => {
-  const result = await loseItemServices.createLoseItem(req.body);
+  const result = await loseItemServices.createLoseItem(
+    req.body,
+    req?.user?._id,
+  );
   sendResponse(res, {
     success: true,
     statusCode: httpStatus.CREATED,

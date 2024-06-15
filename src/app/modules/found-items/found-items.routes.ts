@@ -9,6 +9,7 @@ import authenticate from '../../middleware/auth.middleware';
 const router = Router();
 router.post(
   '/submit-found-item',
+  authenticate('user'),
   validateRequest(loseValidationSchemas.foundItemValidationSchema),
   loseControllers.createFoundItem,
 );
