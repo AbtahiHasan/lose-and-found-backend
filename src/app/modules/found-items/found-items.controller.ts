@@ -63,6 +63,15 @@ const updateStatus = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const deleteFoundItem = catchAsync(async (req, res) => {
+  const result = await foundItemServices.deleteFoundItem(req?.params?.id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'deleted successfully!',
+    data: result,
+  });
+});
 
 const foundControllers = {
   createFoundItem,
@@ -72,5 +81,6 @@ const foundControllers = {
   getMyFoundItems,
 
   updateStatus,
+  deleteFoundItem,
 };
 export default foundControllers;

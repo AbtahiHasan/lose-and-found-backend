@@ -34,9 +34,20 @@ const getMyLoseItems = catchAsync(async (req, res) => {
   });
 });
 
+const deleteLoseItem = catchAsync(async (req, res) => {
+  const result = await loseItemServices.deleteLoseItem(req?.params?.id);
+  sendResponse(res, {
+    success: true,
+    statusCode: httpStatus.OK,
+    message: 'deleted successfully!',
+    data: result,
+  });
+});
+
 const loseControllers = {
   createLoseItem,
   getAllLoseItem,
   getMyLoseItems,
+  deleteLoseItem,
 };
 export default loseControllers;

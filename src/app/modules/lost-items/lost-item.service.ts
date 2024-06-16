@@ -16,10 +16,16 @@ const getMyLoseItems = async (userId: string) => {
 
   return result;
 };
+const deleteLoseItem = async (id: string) => {
+  const result = await LoseItem.findByIdAndDelete(id);
+
+  return result;
+};
 
 const loseItemServices = {
   createLoseItem,
   getAllLoseItem,
   getMyLoseItems,
+  deleteLoseItem,
 };
 export default loseItemServices;

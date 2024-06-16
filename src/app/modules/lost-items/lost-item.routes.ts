@@ -20,6 +20,7 @@ router.get(
   loseControllers.getMyLoseItems,
 );
 
+router.delete('/:id', authenticate('user'), loseControllers.deleteLoseItem);
 const LoseItemRoutes = router;
 
 export default LoseItemRoutes;

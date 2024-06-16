@@ -41,6 +41,11 @@ const updateStatus = async (payload: { id: string; status: string }) => {
 
   return result;
 };
+const deleteFoundItem = async (id: string) => {
+  const result = await FoundItem.findByIdAndDelete(id);
+
+  return result;
+};
 
 const FoundItemServices = {
   createFoundItem,
@@ -50,5 +55,6 @@ const FoundItemServices = {
   getMyFoundItems,
 
   updateStatus,
+  deleteFoundItem,
 };
 export default FoundItemServices;
